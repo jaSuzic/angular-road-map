@@ -1,0 +1,105 @@
+<div>
+  <h3>Start with components + signals</h3>
+  <ul>
+    <li>Use signal() and computed() in a component for strictly local UI.</li>
+    <li>Use for ephemeral stuff that doesn't need to survive navigation.</li>
+  </ul>
+  
+  <h4>When to use:</h4>
+  <p>Perfect for simple, component-scoped state that doesn't need to be shared.</p>
+</div>
+
+<div class="example-section">
+  <h3 class="example-title">Example</h3>
+  <button class="toggle-btn" (click)="toggle()">Toggle details</button>
+  @if (isOpen()) {
+    <div class="details-content">Workout details go here...</div>
+  }
+  
+  <div class="code-section">
+    <h4>Code Implementation:</h4>
+    <pre class="code-block"><code>// Component
+export class ComponentSignalsComponent {{ '{' }}
+  isOpen = signal(false);
+
+  toggle() {{ '{' }}
+    this.isOpen.update((value) => !value);
+  {{ '}' }}
+{{ '}' }}</code></pre>
+    
+    <pre class="code-block"><code><!-- Template -->
+&lt;button (click)="toggle()"&gt;Toggle details&lt;/button&gt;
+{{ '@' }}if (isOpen()) {{ '{' }}
+  &lt;div&gt;Workout details go here...&lt;/div&gt;
+{{ '}' }}</code></pre>
+  </div>
+</div>
+
+<style>
+.example-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.example-title {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.toggle-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: #0056b3;
+}
+
+.details-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  color: #666;
+  font-style: italic;
+}
+
+.code-section {
+  margin-top: 1.5rem;
+}
+
+.code-section h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.code-block {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  overflow-x: auto;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.code-block code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+</style>

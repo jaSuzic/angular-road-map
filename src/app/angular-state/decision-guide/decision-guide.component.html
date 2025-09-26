@@ -1,0 +1,14 @@
+<div>
+  <h3>Quick decision checklist (pragmatic)</h3>
+
+  <ul>
+    <li>Only one component cares? → Component signals.</li>
+    <li>Few components share, basic CRUD, simple async? → Service + signals/RxJS.</li>
+    <li>Feature-scoped but needs effects and structure? → Component Store.</li>
+    <li>App-wide entities, heavy effects, need devtools/traceability? → NgRx.</li>
+    <li>CRUD-heavy domain and you want minimal boilerplate? → Akita.</li>
+  </ul>
+
+  <h4>Progressive enhancement approach:</h4>
+  <p>Start simple and only add structure when pain appears. This decision tree helps you choose the right tool for your current needs.</p>
+</div>

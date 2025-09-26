@@ -1,0 +1,34 @@
+<div>
+  <h3>Level up to a state library</h3>
+  <p>Choose one (Component Store / NgRx / Akita) if you have several of:</p>
+
+  <ul>
+    <li>Cross-feature coordination (auth invalidates many slices; feature flags).</li>
+    <li>Complex effects: optimistic updates, cancellation, websockets, polling.</li>
+    <li>Many consumers sharing the same entities (dashboards, details, menus).</li>
+    <li>Traceability needs: reproducible bugs, auditability, undo/redo.</li>
+    <li>Performance: memoized selectors, normalized entities, large lists.</li>
+  </ul>
+
+  <p>Team scale: clearer conventions, predictable write paths, devtools.</p>
+
+  <h4>Which library when?</h4>
+
+  <ul>
+    <li><strong>Angular Component Store</strong> (lightweight, per-feature)</li>
+    <li>Great stepping stone from services; colocates updaters/selectors/effects.</li>
+    <li>Use when each feature can own its state and you want less boilerplate.</li>
+  </ul>
+
+  <ul>
+    <li><strong>NgRx Store + Effects</strong> (+ Entity, Router-Store)</li>
+    <li>Best for large apps with shared entities, complex effects, and need for devtools/time-travel and entity adapters.</li>
+    <li>Tradeoff: more ceremony, but high discipline and ecosystem support.</li>
+  </ul>
+
+  <ul>
+    <li><strong>Akita</strong></li>
+    <li>Ergonomic entity-centric CRUD; simpler than classic Redux pattern.</li>
+    <li>Smaller ecosystem vs NgRx, but fast to ship typical data flows.</li>
+  </ul>
+</div>

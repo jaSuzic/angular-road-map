@@ -1,0 +1,72 @@
+<div class="angular-state-layout">
+  <div class="sidebar">
+    <h2>Angular State</h2>
+    <nav class="nav-links">
+      <a routerLink="overview" routerLinkActive="active" class="nav-link">Overview</a>
+      <a routerLink="component-signals" routerLinkActive="active" class="nav-link">Component + Signals</a>
+      <a routerLink="services" routerLinkActive="active" class="nav-link">Services</a>
+      <a routerLink="state-libraries" routerLinkActive="active" class="nav-link">State Libraries</a>
+      <a routerLink="decision-guide" routerLinkActive="active" class="nav-link">Decision Guide</a>
+    </nav>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<style>
+.angular-state-layout {
+  display: flex;
+  min-height: 100vh;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.sidebar h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #666;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background: #e9ecef;
+  color: #333;
+}
+
+.nav-link.active {
+  background: #007bff;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
