@@ -24,13 +24,26 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      # Build to a flat ./dist folder and set base-href for project pages
-      - run: npx ng build --configuration=production --base-href="/angular-road-map/" --output-path=dist
-      # SPA refresh fix (so deep-links don't 404 on reload)
-      - run: cp dist/index.html dist/404.html
+
+      # Build (project site needs base-href = /angular-road-map/)
+      - run: npx ng build --configuration=production --base-href="/angular-road-map/"
+
+      # Find the browser build dir (works for Angular 16/17/18)
+      - name: Locate build output & add SPA 404
+        run: |
+          set -e
+          BUILD_DIR="$(dirname "$(find dist -type f -name index.html -print -quit)")"
+          if [ -z "$BUILD_DIR" ]; then
+            echo "No index.html found under dist/. Did the build fail?"
+            exit 2
+          fi
+          echo "BUILD_DIR=$BUILD_DIR" >> "$GITHUB_ENV"
+          cp "$BUILD_DIR/index.html" "$BUILD_DIR/404.html"
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ env.BUILD_DIR }}
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
