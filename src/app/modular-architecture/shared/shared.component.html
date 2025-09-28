@@ -1,0 +1,90 @@
+<h2>Shared Module</h2>
+<p>
+    The Shared Module contains reusable components, directives, and pipes that are used across multiple feature modules.
+</p>
+
+<h3>What belongs in Shared?</h3>
+<ul>
+    <li>Commonly used components (buttons, cards, modals, etc.)</li>
+    <li>Directives (tooltips, highlight, etc.)</li>
+    <li>Pipes (date formatting, currency, etc.)</li>
+    <li>Commonly used Angular modules (CommonModule, FormsModule, etc.)</li>
+</ul>
+
+<h3>Implementation Example</h3>
+<p>Traditional approach (with NgModule):</p>
+<pre><code class="language-typescript">&lt;!-- shared/shared.module.ts --&gt;
+import &#123; NgModule &#125; from '@angular/core';
+import &#123; CommonModule &#125; from '@angular/common';
+import &#123; ButtonComponent &#125; from './components/button/button.component';
+import &#123; HighlightDirective &#125; from './directives/highlight.directive';
+import &#123; ShortenPipe &#125; from './pipes/shorten.pipe';
+
+@NgModule(&#123;
+  imports: [CommonModule],
+  declarations: [
+    ButtonComponent,
+    HighlightDirective,
+    ShortenPipe
+  ],
+  exports: [
+    CommonModule,
+    ButtonComponent,
+    HighlightDirective,
+    ShortenPipe
+  ]
+  // No providers here!
+&#125;)
+export class SharedModule &#123; &#125;</code></pre>
+
+<p>Modern approach (Standalone):</p>
+<pre><code class="language-typescript">&lt;!-- shared/components/button/button.component.ts --&gt;
+import &#123; Component, Input &#125; from '@angular/core';
+import &#123; CommonModule &#125; from '@angular/common';
+
+@Component(&#123;
+  selector: 'app-button',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    &lt;button [class]="'btn ' + type" [disabled]="disabled"&gt;
+      &lt;ng-content&gt;&lt;/ng-content&gt;
+    &lt;/button&gt;
+  `,
+  styles: [`
+    .btn &#123;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    &#125;
+    .btn.primary &#123;
+      background: #1976d2;
+      color: white;
+    &#125;
+    .btn.secondary &#123;
+      background: #f5f5f5;
+      color: #333;
+    &#125;
+  `]
+  &#125;)
+export class ButtonComponent &#123;
+  @Input() type: 'primary' | 'secondary' = 'primary';
+  @Input() disabled = false;
+  &#125;</code></pre>
+
+<h3>Best Practices</h3>
+<ul>
+    <li>Never provide services in SharedModule (to avoid multiple instances)</li>
+    <li>Keep shared components truly reusable and stateless when possible</li>
+    <li>Use barrel files (index.ts) for cleaner imports</li>
+    <li>Document component inputs/outputs clearly</li>
+    <li>With standalone components, import only what you need</li>
+</ul>
+
+<h3>Barrel File Example</h3>
+<pre><code class="language-typescript">// shared/components/index.ts
+export * from './button/button.component';
+export * from './card/card.component';
+
+// In your component
+import &#123; ButtonComponent, CardComponent &#125; from '@app/shared/components';</code></pre>

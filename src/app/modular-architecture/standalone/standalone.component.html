@@ -1,0 +1,76 @@
+<div class="container">
+    <h2>Standalone Components in Angular 16+</h2>
+    <p>
+        Angular 16+ introduces a simplified approach to building applications using standalone components,
+        reducing the need for NgModules in most cases.
+    </p>
+
+    <h3>Key Benefits</h3>
+    <ul>
+        <li>Simplified architecture with less boilerplate</li>
+        <li>Better tree-shaking and smaller bundles</li>
+        <li>Easier lazy loading at the component level</li>
+        <li>More explicit dependencies</li>
+        <li>Gradual migration path from modules</li>
+    </ul>
+
+    <h3>Basic Standalone Component</h3>
+    <div class="code-example">
+        <button (click)="toggleCode('productCard')" class="toggle-code-btn">
+            {{ showCode.productCard ? 'Hide Code' : 'Show Code' }}
+        </button>
+        <div class="code-container" [class.show]="showCode.productCard">
+            <pre><code class="language-typescript">{{ productCardExample }}</code></pre>
+        </div>
+    </div>
+
+    <h3>Bootstrapping a Standalone App</h3>
+    <div class="code-example">
+        <button (click)="toggleCode('bootstrap')" class="toggle-code-btn">
+            {{ showCode.bootstrap ? 'Hide Code' : 'Show Code' }}
+        </button>
+        <div class="code-container" [class.show]="showCode.bootstrap">
+            <pre><code class="language-typescript">{{ bootstrapExample }}</code></pre>
+        </div>
+    </div>
+
+    <h3>Lazy Loading with Standalone</h3>
+    <div class="code-example">
+        <button (click)="toggleCode('lazyLoading')" class="toggle-code-btn">
+            {{ showCode.lazyLoading ? 'Hide Code' : 'Show Code' }}
+        </button>
+        <div class="code-container" [class.show]="showCode.lazyLoading">
+            <pre><code class="language-typescript">{{ lazyLoadingExample }}</code></pre>
+        </div>
+    </div>
+
+    <h3>Using &#64;defer for Lazy UI</h3>
+    <p>Angular 17+ introduces &#64;defer for lazy loading parts of your UI:</p>
+    <div class="code-example">
+        <button (click)="toggleCode('defer')" class="toggle-code-btn">
+            {{ showCode.defer ? 'Hide Code' : 'Show Code' }}
+        </button>
+        <div class="code-container" [class.show]="showCode.defer">
+            <pre><code class="language-typescript">{{ deferExample }}</code></pre>
+        </div>
+    </div>
+
+    <h3>Defer Triggers</h3>
+    <ul>
+        <li><code>on idle</code>: When the browser is idle</li>
+        <li><code>on viewport</code>: When the element enters the viewport</li>
+        <li><code>on interaction</code>: When the user interacts with an element</li>
+        <li><code>on hover</code>: When the user hovers over an element</li>
+        <li><code>on timer(500ms)</code>: After a specified delay</li>
+        <li><code>on immediate</code>: Start loading immediately (non-blocking)</li>
+    </ul>
+
+    <h3>Best Practices</h3>
+    <ul>
+        <li>Start new projects with standalone components</li>
+        <li>Use <code>imports</code> array to explicitly declare dependencies</li>
+        <li>Leverage <code>&#64;defer</code> for better performance</li>
+        <li>Use route-level providers for feature-specific services</li>
+        <li>Consider using <code>inject()</code> for cleaner DI in standalone components</li>
+    </ul>
+</div>

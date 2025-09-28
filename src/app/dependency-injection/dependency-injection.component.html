@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Dependency Injection Patterns</h1>
+  
+  <p>Dependency Injection (DI) is at the heart of Angular. It helps create and share services throughout your application. Here are some common DI patterns:</p>
+  
+  <section class="pattern">
+    <h2>1. Multi-providers</h2>
+    <p>When multiple classes implement the same interface, we can register them under the same token and get an array of instances. This is useful when each module has its own implementation of a service.</p>
+    
+    <button (click)="toggleCode()" class="code-toggle">
+      {{ showCode ? 'Hide' : 'Show' }} code example
+    </button>
+    
+    <div *ngIf="showCode" class="code-block">
+      <pre><code [innerHTML]="multiProviderExample"></code></pre>
+    </div>
+  </section>
+  
+  <section class="pattern">
+    <h2>2. Injection Tokens</h2>
+    <p>Use Injection Tokens when you need to inject values or interfaces (non-class dependencies).</p>
+    
+    <div *ngIf="showCode" class="code-block">
+      <pre><code [innerHTML]="injectionTokenExample"></code></pre>
+    </div>
+  </section>
+  
+  <section class="pattern">
+    <h2>3. Tree-shakable Providers</h2>
+    <p>Use <code>providedIn: 'root'</code> to allow Angular to eliminate unused services from the final bundle.</p>
+    
+    <div *ngIf="showCode" class="code-block">
+      <pre><code [innerHTML]="treeShakableExample"></code></pre>
+    </div>
+    
+    <p>Other variations:</p>
+    <ul>
+      <li><code>providedIn: SomeModule</code> - Makes the service available only within a specific module</li>
+      <li><code>providedIn: 'any'</code> - Creates a new instance for each lazy-loaded module</li>
+    </ul>
+  </section>
+</div>
