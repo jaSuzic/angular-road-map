@@ -1,0 +1,87 @@
+<div class="content">
+    <h2>Change Detection Strategies (Default vs OnPush)</h2>
+
+    <p>
+        Change Detection is the mechanism Angular uses to know when to update the template.
+        The default strategy means Angular checks the entire component and all child components on every change.
+    </p>
+
+    <h3>Default Strategy</h3>
+    <ul>
+        <li>Checks the entire component tree on every change</li>
+        <li>Runs on: events, timers, XHR, promises, etc.</li>
+        <li>Simple but can be inefficient for large applications</li>
+    </ul>
+
+    <h3>OnPush Strategy</h3>
+    <p>Component is only checked when:</p>
+    <ul>
+        <li>An input reference changes</li>
+        <li>An event originates from the component or one of its children</li>
+        <li>Change detection is triggered manually</li>
+    </ul>
+
+    <button (click)="toggleCode()"
+            class="code-toggle">
+        {{ showCodeExample ? 'Hide' : 'Show' }} Code Example
+    </button>
+
+    <div *ngIf="showCodeExample"
+         class="code-example">
+        <pre><code class="language-typescript">@Component({{ '{' }} 
+  selector: 'app-user', 
+  template: '{{ '{{' }} user.name {{ '}}' }}', 
+  changeDetection: ChangeDetectionStrategy.OnPush 
+{{ '}}' }}
+export class UserComponent {{ '{' }}
+  @Input() user: {{ '{' }} name: string {{ '}' }} = {{ '{' }} name: 'John' {{ '}' }}; 
+  
+  // This WON'T trigger change detection
+  updateName() {{ '{' }}
+    this.user.name = 'Updated';
+  {{ '}' }}
+  
+  // This WILL trigger change detection
+  updateUser() {{ '{' }}
+    this.user = {{ '{' }} ...this.user, name: 'Updated' {{ '}' }};
+  {{ '}' }}
+{{ '}' }}</code></pre>
+    </div>
+
+    <h3>Manual Change Detection</h3>
+    <p>You can manually control change detection using <code>ChangeDetectorRef</code>:</p>
+    <ul>
+        <li><code>markForCheck()</code> - Marks the component to be checked</li>
+        <li><code>detectChanges()</code> - Immediately checks the component</li>
+        <li><code>detach()</code>/<code>reattach()</code> - Controls automatic checking</li>
+    </ul>
+</div>
+
+<style>
+    .code-toggle {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 16px 0;
+    }
+
+    .code-example {
+        background: #f5f5f5;
+        padding: 16px;
+        border-radius: 4px;
+        margin: 16px 0;
+        overflow-x: auto;
+    }
+
+    pre {
+        margin: 0;
+    }
+
+    code {
+        font-family: 'Courier New', monospace;
+    }
+
+</style>
