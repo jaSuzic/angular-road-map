@@ -1,0 +1,93 @@
+<div class="lab-container">
+    <h2>LAB: Feature Module with Preloaded Data and Protected Routes</h2>
+    <div class="code-block">
+        <h3>1. Orders Routing Module</h3>
+        <pre><code>// orders/orders-routing.module.ts
+const routes: Routes = [
+  &lbrace;
+    path: '',
+    component: OrdersListComponent,
+    canActivate: [AuthGuard],
+    resolve: &lbrace; orders: OrdersResolver &rbrace;
+  &rbrace;
+];
+
+@NgModule&#40;&lbrace;
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+&rbrace;&#41;
+export class OrdersRoutingModule &lbrace;&rbrace;
+</code></pre>
+    </div>
+
+    <div class="code-block">
+        <h3>2. App Routing Module</h3>
+        <pre><code>// app-routing.module.ts
+const routes: Routes = [
+  // ... other routes
+  &lbrace;
+    path: 'orders', 
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule), 
+    data: &lbrace; preload: true &rbrace;
+  &rbrace;
+];
+
+@NgModule&#40;&lbrace;
+  imports: [RouterModule.forRoot(routes, &lbrace; preloadingStrategy: PreloadAllModules &rbrace;)],
+  exports: [RouterModule]
+  </code></pre>
+    </div>
+    <div class="code-block">
+        <h3>3. Auth Guard</h3>
+        <pre><code>&#x40;@Injectable(&#x7B; providedIn: 'root' &#x7D;)
+export class AuthGuard implements CanActivate &#x7B;
+  constructor(private auth: AuthService, private router: Router) &#x7B;&rbrace;
+  canActivate(): boolean &#x7B;
+    if (this.auth.isLoggedIn()) return true;
+    this.router.navigate(['/login']);
+    return false;
+  &#x7D;
+&rbrace;
+
+&#x40;@Injectable(&#x7B; providedIn: 'root' &#x7D;)
+export class AuthService &#x7B;
+  isLoggedIn(): boolean &#x7B;
+    // Implementacija provere autentifikacije
+    return true; // ili false u zavisnosti od stanja prijave
+  &#x7D;
+&rbrace;</code></pre>
+    </div>
+
+    <div class="code-block">
+        <h3>4. Orders Resolver</h3>
+        <pre><code>&#x40;@Injectable(&#x7B; providedIn: 'root' &#x7D;)
+export class OrdersResolver implements Resolve&lt;Order[]&gt; &#x7B;
+  constructor(private orderService: OrderService) &#x7B;&rbrace;
+  
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable&lt;Order[]&gt; &#x7B;
+    return this.orderService.getOrders().pipe(
+      catchError(error => &#x7B;
+        console.error('Error loading orders:', error);
+        return of([]);
+      &#x7D;)
+    );
+  &#x7D;
+&rbrace;
+</code></pre>
+    </div>
+    <h3>How does this work?</h3>
+    <p>Angular behaves in the following way:</p>
+    <ol>
+        <li>Before the component is even created, the Router checks all resolvers defined on that route.</li>
+        <li>It runs them and waits for their observables to complete.</li>
+        <li>When all resolvers complete, it writes the result to <code>ActivatedRoute.data</code> (e.g.,</li>
+        <li>Only then does it create and render the component.</li>
+    </ol>
+    <p><strong>This means:</strong> the component is not instantiated until the <code>OrdersResolver</code> completes.
+        When it
+        opens, you already have the orders ready, with no "blank screen" or spinner in the component itself (unless the
+        resolver
+        is delayed or fails internally).</p>
+    <p>That's why a resolver is an excellent choice when your data is critical for display (e.g., order list, user
+        profile), while <code>{{'@defer'}}</code> or a classic <code>ngOnInit</code> + spinner is better for secondary
+        features.</p>

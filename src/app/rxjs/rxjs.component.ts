@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'app-rxjs',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  template: `
+    selector: 'app-rxjs',
+    standalone: true,
+    imports: [RouterOutlet, RouterLink, RouterLinkActive],
+    template: `
     <div class="rxjs-layout">
       <div class="sidebar">
         <h2>RxJS</h2>
@@ -22,7 +22,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       </div>
     </div>
   `,
-  styles: [`
+    styles: [`
     .rxjs-layout {
       display: flex;
       min-height: 100vh;
@@ -37,6 +37,11 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       padding: 1.5rem;
       border-radius: 8px;
       height: fit-content;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      height: 100vh;
+      overflow-y: auto;
     }
 
     .sidebar h2 {
@@ -76,4 +81,4 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     }
   `]
 })
-export class RxjsComponent {}
+export class RxjsComponent { }

@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
-  selector: 'app-navbar',
-  template: `
+    standalone: true,
+    imports: [CommonModule, RouterLink, RouterLinkActive],
+    selector: 'app-navbar',
+    template: `
     <nav class="navbar">
       <div class="container">
         <a routerLink="/" class="navbar-brand">Angular Roadmap</a>
@@ -17,7 +17,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </div>
     </nav>
   `,
-  styles: [`
+    styles: [`
     .navbar {
       background-color: #1976d2;
       color: white;
@@ -66,4 +66,4 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
   `]
 })
-export class NavbarComponent {}
+export class NavbarComponent { }

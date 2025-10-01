@@ -23,6 +23,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
                    routerLinkActive="active">Feature Modules</a></li>
             <li><a routerLink="/modular-architecture/standalone" 
                    routerLinkActive="active">Standalone Approach</a></li>
+            <li><a routerLink="/modular-architecture/lazy-loading" 
+                   routerLinkActive="active">Lazy Loading & Preload</a></li>
+            <li><a routerLink="/modular-architecture/route-guards" 
+                   routerLinkActive="active">Route Guards & Resolvers</a></li>
+            <li><a routerLink="/modular-architecture/feature-module-lab" 
+                   routerLinkActive="active">Feature Module Lab</a></li>
           </ul>
         </nav>
       </aside>
@@ -41,10 +47,17 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
       padding: 1rem;
       background: #f5f5f5;
       border-right: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      height: 100vh;
+      overflow-y: auto;
     }
     .content {
       flex: 1;
-      padding: 1rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     nav ul {
       list-style: none;
