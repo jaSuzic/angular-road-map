@@ -1,0 +1,156 @@
+<div class="content">
+  <style>
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    h1 {
+      color: #1976d2;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      color: #0d47a1;
+      margin: 1.5rem 0 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      color: #1565c0;
+      margin: 1.2rem 0 0.8rem;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    .code-toggle {
+      margin-left: 10px;
+      padding: 2px 10px;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8em;
+    }
+    .code-toggle:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+
+  <h1>Micro-frontends with Module Federation</h1>
+
+    <section class="overview">
+        <h2>Overview</h2>
+        <p>Shell (host) dynamically loads "remote" applications by route. We share Angular and common libraries as
+    </section>
+
+    <section class="architecture">
+        <h2>Architecture</h2>
+        <ul>
+            <li><strong>shell</strong> - "entrypoint" (global routing, layout, auth guard, navbar, error boundary). It
+                sidebar, <code>&lt;router-outlet&gt;</code>, and shared providers (e.g., Auth).</li>
+            <li><strong>orders-remote, users-remote</strong> - Each remote is a separate web app with its own build and
+                deployment URL (e.g., https://users.example.com/remoteEntry.js). The shell lazy-loads them by route. The
+                shell and users-remote can be deployed and versioned independently.</li>
+            <li><strong>Shared</strong>: @angular/*, rxjs, design-system.</li>
+        </ul>
+    </section>
+
+    <section class="example">
+        <h2>Example</h2>
+        <h3>
+            Remote Configuration (webpack-mf config)
+            <button (click)="toggleCode('remoteConfig')" class="code-toggle">
+                {{ codeVisibility.remoteConfig ? 'Sakrij kod' : 'Prikaži kod' }}
+            </button>
+        </h3>
+        <pre *ngIf="codeVisibility.remoteConfig"><code>// projects/users/webpack.config.js
+const &lbrace; ModuleFederationPlugin &rbrace; = require('webpack').container;
+
+module.exports = &lbrace;
+  plugins: [
+    new ModuleFederationPlugin(&lbrace;
+      name: 'users',
+      filename: 'remoteEntry.js',
+      exposes: &lbrace;
+        './Routes': './src/app/remote-users.routes.ts',
+      &rbrace;,
+      shared: &lbrace;
+        '@angular/core': &lbrace; singleton: true, strictVersion: true, requiredVersion: 'auto' &rbrace;,
+        '@angular/common': &lbrace; singleton: true, strictVersion: true, requiredVersion: 'auto' &rbrace;,
+        '@angular/router': &lbrace; singleton: true, strictVersion: true, requiredVersion: 'auto' &rbrace;,
+        'rxjs': &lbrace; singleton: true, requiredVersion: 'auto' &rbrace;,
+      &rbrace;
+    &rbrace;)
+  ]
+&rbrace;;
+
+// remote-users.routes.ts (standalone routes)
+export default [
+  &lbrace; path: '', loadComponent: () => import('./users.component').then(m => m.UsersComponent) &rbrace;
+] as Route[];</code></pre>
+
+        <h3>
+            Shell Integration
+            <button (click)="toggleCode('shellIntegration')" class="code-toggle">
+                {{ codeVisibility.shellIntegration ? 'Sakrij kod' : 'Prikaži kod' }}
+            </button>
+        </h3>
+        <pre *ngIf="codeVisibility.shellIntegration"><code>// shell.routes.ts
+import &lbrace; loadRemoteModule &rbrace; from '@angular-architects/module-federation';
+
+export const routes: Routes = [
+  &lbrace;
+    path: 'users',
+    loadChildren: () =>
+      loadRemoteModule(&lbrace;
+        type: 'module',
+        remoteEntry: 'https://users.example.com/remoteEntry.js',
+        exposedModule: './Routes'
+      &rbrace;).then(m => m.default)
+  &rbrace;,
+];</code></pre>
+    </section>
+
+    <section class="benefits">
+        <h2>Why Module Federation?</h2>
+        <ul>
+            <li>Teams can deploy independently</li>
+            <li>Shorter build times (partially)</li>
+            <li>Ideal for: Large organizations with naturally divided domains (Billing, Catalog, Admin)</li>
+        </ul>
+    </section>
+
+    <section class="best-practices">
+        <h2>Best Practices</h2>
+        <ul>
+            <li><strong>Version Pinning</strong>: Use strictVersion: true for Angular packages to ensure compatibility
+            </li>
+            <li><strong>Contracts</strong>: Keep exposed routes/components stable (follow semver)</li>
+            <li><strong>Auth/Session</strong>: Use shared auth lib or backend session; avoid duplicate login</li>
+            <li><strong>Design System</strong>: Shared UI kit for consistent look across remotes</li>
+            <li><strong>Inter-remote Communication</strong>: Use URL parameters, shared event bus, or backend; avoid
+                direct dependencies</li>
+            <li><strong>Environment Configuration</strong>: Each remote should have its own environment config</li>
+            <li><strong>Error Handling</strong>: Add fallback routes and error boundaries for remote loading</li>
+            <li><strong>Caching</strong>: Use CDN with long cache times for remoteEntry and chunks</li>
+        </ul>
+    </section>
+</div>

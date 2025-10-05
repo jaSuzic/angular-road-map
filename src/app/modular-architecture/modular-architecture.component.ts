@@ -27,6 +27,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
                    routerLinkActive="active">Lazy Loading & Preload</a></li>
             <li><a routerLink="/modular-architecture/route-guards" 
                    routerLinkActive="active">Route Guards & Resolvers</a></li>
+            <li><a routerLink="/modular-architecture/group-exporting" 
+                   routerLinkActive="active">Group Exporting</a></li>
             <li><a routerLink="/modular-architecture/feature-module-lab" 
                    routerLinkActive="active">Feature Module Lab</a></li>
           </ul>

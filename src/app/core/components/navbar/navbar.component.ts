@@ -13,6 +13,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <div class="nav-links">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
           <a routerLink="/rxjs" routerLinkActive="active">RxJS</a>
+          <a routerLink="/separation-of-concerns" routerLinkActive="active">Separation of Concerns</a>
         </div>
       </div>
     </nav>

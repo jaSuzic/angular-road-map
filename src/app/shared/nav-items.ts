@@ -35,5 +35,23 @@ export const NAV_ITEMS: NavItem[] = [
         path: '/modular-architecture/overview',
         icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z',
         description: 'Learn about modular architecture in Angular'
-    }
+    },
+    {
+        title: 'Separation of Concerns',
+        path: '/separation-of-concerns',
+        icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z',
+        description: 'Learn about separation of concerns in Angular'
+    },
+    {
+        title: 'Module Federation',
+        path: '/module-federation',
+        icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z',
+        description: 'Learn about module federation in Angular'
+    },
+    {
+        title: 'API Development',
+        path: '/api-development',
+        icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z',
+        description: 'Compare REST and GraphQL in Angular'
+    },
 ];

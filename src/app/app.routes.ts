@@ -37,6 +37,21 @@ export const routes: Routes = [
         loadChildren: () => import('./modular-architecture/modular-architecture.routes')
             .then(m => m.MODULAR_ARCHITECTURE_ROUTES)
     },
+    {
+        path: 'separation-of-concerns',
+        loadComponent: () => import('./separation-of-concerns/separation-of-concerns.component')
+            .then(m => m.SeparationOfConcernsComponent)
+    },
+    {
+        path: 'module-federation',
+        loadComponent: () => import('./module-federation/module-federation.component')
+            .then(m => m.ModuleFederationComponent)
+    },
+    {
+        path: 'api-development',
+        loadComponent: () => import('./api-development/api-development.component')
+            .then(m => m.ApiDevelopmentComponent)
+    },
     { path: '', redirectTo: '/angular-state', pathMatch: 'full' },
     { path: '**', redirectTo: '' }
 ];

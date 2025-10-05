@@ -1,0 +1,215 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+h1 {
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  color: #0d47a1;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+  margin: 2rem 0 1rem;
+}
+
+h3 {
+  color: #1565c0;
+  margin: 1.5rem 0 1rem;
+}
+
+.api-overview, .use-cases, .trade-offs, .code-example {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rest-case, .graphql-case,
+.rest-trade, .graphql-trade {
+  padding: 1rem;
+  border-radius: 6px;
+  background: #f8f9fa;
+}
+
+.rest-case, .rest-trade {
+  border-left: 4px solid #4caf50;
+}
+
+.graphql-case, .graphql-trade {
+  border-left: 4px solid #9c27b0;
+}
+
+ul {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+}
+
+.code-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.code-tab {
+  margin-right: 0.25rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.tab-button {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #e9e9e9;
+  }
+
+  &.active {
+    background: #1976d2;
+    color: white;
+    border-color: #1976d2;
+  }
+}
+
+.code-content {
+  background: #f8f9fa;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+pre {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+  display: block;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+// Syntax highlighting for code examples
+:host ::ng-deep {
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #6a9955;
+  }
+
+  .token.punctuation {
+    color: #d4d4d4;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #b5cea8;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: #ce9178;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string {
+    color: #d4d4d4;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: #569cd6;
+  }
+
+  .token.function,
+  .token.class-name {
+    color: #dcdcaa;
+  }
+
+  .token.regex,
+  .token.important,
+  .token.variable {
+    color: #d16969;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .content {
+    padding: 0.5rem;
+  }
+
+  .api-overview, .use-cases, .trade-offs, .code-example {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
